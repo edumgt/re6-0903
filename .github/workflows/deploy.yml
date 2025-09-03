@@ -22,8 +22,10 @@ jobs:
           node-version: 20
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies (ignore peer deps error)
+        run: npm install --legacy-peer-deps
+        # 또는
+        # run: npm install --force
 
       - name: Build Vite project
         run: npm run build
