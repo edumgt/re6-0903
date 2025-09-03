@@ -11,6 +11,32 @@ function App() {
     alert(markdown);
   };
 
+  // 🔹 툴바 정의: 기본 버튼 + 저장 버튼
+  const toolbarItems = [
+    ["heading", "bold", "italic", "strike"],
+    ["hr", "quote"],
+    ["ul", "ol", "task", "indent", "outdent"],
+    ["table", "image", "link"],
+    ["code", "codeblock"],
+    [
+      {
+        name: "save",
+        tooltip: "저장",
+        // 버튼에 표시할 HTML (텍스트 대신 아이콘/이모지도 가능)
+        el: (() => {
+          const button = document.createElement("button");
+          button.innerHTML = "💾"; 
+          button.style.padding = "4px 8px";
+          button.style.border = "none";
+          button.style.background = "transparent";
+          button.style.cursor = "pointer";
+          button.onclick = handleSave; // 클릭 시 저장 실행
+          return button;
+        })(),
+      },
+    ],
+  ];
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-10">
       <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-4xl">
@@ -22,13 +48,8 @@ function App() {
           height="400px"
           initialEditType="markdown"
           useCommandShortcut={true}
+          toolbarItems={toolbarItems} // 🔹 커스텀 툴바 적용
         />
-        <button
-          onClick={handleSave}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          저장
-        </button>
       </div>
     </div>
   );
